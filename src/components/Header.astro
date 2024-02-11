@@ -1,0 +1,128 @@
+---
+
+---
+
+<header>
+  <div class="logo">
+    <img src="../../public/assets/shared/logo.svg" alt="" />
+  </div>
+  <span class="rectangle"></span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="list-item-home active" data-dataPage="1">
+        <a href="#"><span class="span-list-item">00</span> Home</a>
+      </li>
+      <li class="list-item-home" data-dataPage="2">
+        <a href="#"><span class="span-list-item">01</span> Destination</a>
+      </li>
+      <li class="list-item-home" data-dataPage="3">
+        <a href="#"><span class="span-list-item">02</span> Crew</a>
+      </li>
+      <li class="list-item-home" data-dataPage="4">
+        <a href="#"><span class="span-list-item">03</span> Technology</a>
+      </li>
+    </ul>
+    <span class="indicator" id="Indicator"></span>
+  </nav>
+</header>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@100;200;300;400;700&display=swap");
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    .nav {
+      width: 1100px;
+      height: 96px;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+
+      .nav-list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+
+        .list-item-home {
+          list-style: none;
+          position: relative;
+
+          &::before {
+            content: "";
+            display: none;
+            position: absolute;
+            bottom: -35px;
+            width: 100%;
+            height: 3px;
+            background: rgb(255, 255, 255);
+          }
+          &.active::before {
+            display: inline-block;
+          }
+
+          &:hover::before {
+            display: none;
+          }
+
+          a {
+            font-family: "Barlow Condensed", sans-serif;
+            font-size: 18px;
+            font-weight: 400;
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2.7px;
+
+            span {
+              font-family: "Barlow Condensed", sans-serif;
+              font-weight: 700;
+            }
+          }
+        }
+      }
+
+      .indicator {
+        height: 3px;
+        background: rgba(255, 255, 255, 0.3);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        transition: 0.3s ease-in-out all;
+      }
+    }
+
+    .rectangle {
+      width: 600px;
+      height: 1px;
+      margin-right: -200px;
+      z-index: 2000;
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+</style>
+
+<script>
+  const indicator = document.getElementById("Indicator");
+  const listItems = document.querySelectorAll(".list-item-home");
+
+  listItems.forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+      indicator.style.left = `${item.offsetLeft}px`;
+      indicator.style.width = `${item.clientWidth}px`;
+    });
+
+    item.addEventListener("mouseleave", () => {
+      indicator.style.left = `0px`;
+      indicator.style.width = `0px`;
+    });
+  });
+</script>
