@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="Space Turing">
+<Layout title="Space Turing" pageId={1}>
   <section class="section-home">
     <div class="hero">
       <h2>So You Want To Travel To</h2>
@@ -27,14 +27,63 @@ import Layout from "../layouts/Layout.astro";
     background: url("/assets/home/background-home-desktop.jpg") no-repeat;
     background-size: cover;
     height: 100dvh;
-
-    padding: 40px 0 0 55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .section-home {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    width: 80%;
+    margin: auto;
     align-items: flex-end;
-    height: 100%;
+    --font-hero: var(--font-two);
+    margin-bottom: 120px;
+    .hero {
+      width: 450px;
+      h2 {
+        font-size: 28px;
+        font-weight: 400;
+        color: var(--second-text);
+        text-transform: uppercase;
+        margin-bottom: 33px;
+      }
+      h1 {
+        font-size: 150px;
+        color: #fff;
+        font-family: var(--font-hero);
+        margin-bottom: 25px;
+        font-weight: 400;
+      }
+
+      .hero-description {
+        font-size: 18px;
+        color: var(--second-text);
+        line-height: 2;
+      }
+    }
+
+    .explore-btn {
+      button {
+        width: 274px;
+        height: 274px;
+        border-radius: 100%;
+        border: none;
+        background: #fff;
+        font-size: 32px;
+        letter-spacing: 2px;
+        font-family: var(--font-hero);
+        text-transform: uppercase;
+        transition:
+          box-shadow,
+          0.3s ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+          box-shadow: 0 0 0 50px rgba(255, 255, 255, 0.2);
+        }
+      }
+    }
   }
 </style>
