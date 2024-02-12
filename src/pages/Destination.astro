@@ -147,23 +147,16 @@ import LayoutPage from "../layouts/LayoutPage.astro";
       }
     }
   }
-
-  @keyframes fadeIn {
-    from {
-      transform: translateY(30px);
-      opacity: 0;
-    }
-  }
 </style>
 
 <script>
-  const renderInfoInHTML = async (id: number) => {
+  const renderInfoInHTML = async (id: number, category: string) => {
     // Penticion para recuperar la informacion del archivo data.json
     const data = await fetch("src/data.json")
       .then((res) => res)
       .then((res) => res.json());
-    const infoDestinations = data.destinations;
-    let newInfo = infoDestinations[id];
+    const info = data[category];
+    let newInfo = info[id];
 
     // Seleccionar elementos HTML Necesarios
     const $imgContainer = document.querySelector(".container-img"),
@@ -183,14 +176,16 @@ import LayoutPage from "../layouts/LayoutPage.astro";
     $description.innerText = newInfo.description;
     $distance.innerText = newInfo.distance.toUpperCase();
     $travel.innerText = newInfo.travel.toUpperCase();
+    //Guardar la selección en localStorage
+    localStorage.setItem("id", JSON.stringify(id));
   };
 
   // Recuperar el id en localStorage para no peder la selección
-  const idLocal = localStorage.getItem("id");
-  renderInfoInHTML(Number(idLocal));
+  const idLocal = localStorage.getItem("id") ?? 0;
+  renderInfoInHTML(Number(idLocal), "destinations");
   //
   const items = Array.from(document.querySelectorAll(".item-list-destination"));
-
+  //
   items.forEach((item) => {
     item.addEventListener("click", (e) => {
       const ClickElement = e.currentTarget;
@@ -198,15 +193,11 @@ import LayoutPage from "../layouts/LayoutPage.astro";
       items.forEach((item) => {
         if (item.classList.contains("active")) item.classList.remove("active");
       });
-
       ClickElement.classList.add("active");
-
-      renderInfoInHTML(item.dataset.id);
-      //Guardar la selección en localStorage
-      localStorage.setItem("id", item.dataset.id);
+      renderInfoInHTML(Number(item.dataset.id), "destinations");
     });
   });
-
+  //
   items.forEach((item) => {
     if (item.dataset.id === idLocal) item.classList.add("active");
   });
