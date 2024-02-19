@@ -45,40 +45,40 @@ import LayoutPage from "../layouts/LayoutPage.astro";
     .person-bio {
       .rol {
         display: inline-block;
-        font-size: 32px;
+        font-size: 2rem;
         font-weight: normal;
         font-family: var(--font-two);
         text-transform: uppercase;
         color: rgba(255, 255, 255, 0.3);
-        margin-bottom: 20px;
+        margin-bottom: 1.25rem;
       }
       .name {
-        font-size: 56px;
+        font-size: 3.5rem;
         font-weight: normal;
         font-family: var(--font-two);
         text-transform: uppercase;
         color: #fff;
-        margin-bottom: 30px;
+        margin-bottom: 1.875rem;
       }
 
       .info {
-        width: 445px;
+        width: 27.8125rem;
         color: var(--second-text);
-        font-size: 18px;
+        font-size: 1.125rem;
         line-height: 2;
-        margin-bottom: 120px;
+        margin-bottom: 7.5rem;
       }
 
       .indicators {
         display: inline-flex;
-        gap: 30px;
+        gap: 1.875rem;
         position: absolute;
-        bottom: 95px;
+        bottom: 5.9375rem;
 
         .indicator {
           list-style: none;
-          width: 15px;
-          height: 15px;
+          width: 0.9375rem;
+          height: 0.9375rem;
           border-radius: 100%;
           background: rgba(255, 255, 255, 0.3);
           cursor: pointer;
@@ -105,13 +105,13 @@ import LayoutPage from "../layouts/LayoutPage.astro";
 </style>
 
 <script>
-  const renderDateInHTML = async (id: number) => {
+  const renderDateInHTML = async (id: number, category: string) => {
     // Penticion para recuperar la informacion del archivo data.json
     const data = await fetch("src/data.json")
       .then((res) => res)
       .then((res) => res.json());
-    const infoCrew = data.crew;
-    let newInfo = infoCrew[id];
+    const info = data[category];
+    let newInfo = info[id];
 
     const $rol = document.querySelector(".rol"),
       $name = document.querySelector(".name"),
@@ -141,12 +141,11 @@ import LayoutPage from "../layouts/LayoutPage.astro";
 
       ClickElement.classList.add("active");
 
-      renderDateInHTML(Number(indicator.dataset.id));
+      renderDateInHTML(Number(indicator.dataset.id), "crew");
     });
   });
   const idLocal = localStorage.getItem("id-crew") ?? 0;
-  console.log(idLocal);
-  renderDateInHTML(Number(idLocal));
+  renderDateInHTML(Number(idLocal), "crew");
 
   indicators.forEach((item) => {
     if (item.dataset.id === idLocal) item.classList.add("active");

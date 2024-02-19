@@ -41,8 +41,9 @@ import LayoutPage from "../layouts/LayoutPage.astro";
 
 <style>
   body {
-    background: url("/assets/destination/background-destination-desktop.jpg")
-      no-repeat;
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+      url("/assets/destination/img1.noche_estrellada.webp") no-repeat;
     background-size: cover;
   }
 
@@ -50,29 +51,30 @@ import LayoutPage from "../layouts/LayoutPage.astro";
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 157px;
-    margin: 80px;
+    gap: 9.8125rem;
+    margin: 5rem;
 
     .container-img {
       img {
         animation: fadeIn 0.5s linear;
+        width: 25rem;
       }
     }
 
     .options-destination {
-      width: 450px;
+      width: 28.125rem;
       .list-destination {
-        margin-bottom: 50px;
+        margin-bottom: 3.125rem;
 
         .item-list-destination {
           list-style: none;
           display: inline-block;
-          margin-right: 35px;
-          padding: 12px 0;
-          font-size: 16px;
+          margin-right: 2.1875rem;
+          padding: 0.75rem 0;
+          font-size: 1rem;
           text-transform: uppercase;
           color: var(--second-text);
-          letter-spacing: 2.7px;
+          letter-spacing: 0.1688rem;
           position: relative;
           cursor: pointer;
 
@@ -82,7 +84,7 @@ import LayoutPage from "../layouts/LayoutPage.astro";
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 3px;
+            height: 0.1875rem;
             background: #fff;
           }
 
@@ -102,45 +104,45 @@ import LayoutPage from "../layouts/LayoutPage.astro";
       }
 
       #titleDestination {
-        font-size: 100px;
+        font-size: 6.25rem;
         color: #fff;
         font-weight: normal;
         font-family: var(--font-two);
-        margin-bottom: 20px;
+        margin-bottom: 1.25rem;
       }
       #descriptionDestination {
-        font-size: 18px;
+        font-size: 1.125rem;
         color: var(--second-text);
         font-family: var(--font);
         line-height: 2;
-        margin-bottom: 35px;
-        letter-spacing: 0.5px;
+        margin-bottom: 2.1875rem;
+        letter-spacing: 0.0313rem;
       }
 
       .spa {
         display: inline-block;
         width: 100%;
-        height: 1px;
+        height: 0.0625rem;
         background: rgba(255, 255, 255, 0.3);
       }
 
       .statistics {
         display: flex;
-        gap: 80px;
+        gap: 5rem;
         div {
           display: inline-block;
-          margin-top: 10px;
+          margin-top: 0.625rem;
           .title-span {
             font-weight: normal;
-            font-size: 15px;
+            font-size: 0.9375rem;
             color: var(--second-text);
-            margin-bottom: 15px;
+            margin-bottom: 0.9375rem;
           }
           .distance {
             display: block;
             font-weight: normal;
             font-family: var(--font-two);
-            font-size: 28px;
+            font-size: 1.75rem;
             color: #fff;
           }
         }
@@ -157,7 +159,6 @@ import LayoutPage from "../layouts/LayoutPage.astro";
       .then((res) => res.json());
     const info = data[category];
     let newInfo = info[id];
-
     // Seleccionar elementos HTML Necesarios
     const $imgContainer = document.querySelector(".container-img"),
       $title = document.getElementById("titleDestination"),
