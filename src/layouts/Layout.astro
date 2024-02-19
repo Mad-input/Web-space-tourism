@@ -1,5 +1,4 @@
 ---
-import { ViewTransitions } from "astro:transitions";
 import Header from "../components/Header.astro";
 interface Props {
   title: string;
@@ -18,7 +17,6 @@ const { title, pageId } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <!-- <ViewTransitions /> -->
   </head>
   <body>
     <Header page={pageId} />
@@ -36,6 +34,7 @@ const { title, pageId } = Astro.props;
         --font: "Barlow Condensed", sans-serif;
         --font-two: "Bellefair", sans-serif;
         --second-text: #d0d6f9;
+        font-size: 16px;
       }
       *,
       html {

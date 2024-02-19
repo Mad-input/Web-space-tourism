@@ -1,0 +1,174 @@
+---
+import Layout from "../layouts/Layout.astro";
+import LayoutPage from "../layouts/LayoutPage.astro";
+---
+
+<Layout title="Technology" pageId={4}>
+  <LayoutPage title="Space Launch 101" id={3}>
+    <div class="hero">
+      <div class="indicators">
+        <button class="btn-tec" data-id="0">1</button>
+        <button class="btn-tec" data-id="1">2</button>
+        <button class="btn-tec" data-id="2">3</button>
+      </div>
+      <article class="card">
+        <div class="terminology">
+          <h4>The Terminology...</h4>
+          <h1 class="titleCard"></h1>
+          <p class="description-card"></p>
+        </div>
+        <div class="container-img"></div>
+      </article>
+    </div>
+  </LayoutPage>
+</Layout>
+
+<style>
+  body {
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+      url("/assets/technology/background-technology-desktop.jpg") no-repeat;
+    background-size: cover;
+  }
+
+  .hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2.5rem;
+
+    .container-img {
+      img {
+        width: 32.1875rem;
+      }
+    }
+
+    .indicators {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-right: 30px;
+      .btn-tec {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 100%;
+        background: none;
+        color: #fff;
+        border: 0.0625rem solid #ffffff55;
+        font-size: 2rem;
+        font-family: var(--font-two);
+        cursor: pointer;
+        transition: 0.2s ease-in-out;
+
+        &.active {
+          background: #fff;
+          color: #000;
+        }
+
+        &:hover {
+          border-color: #fff;
+        }
+      }
+    }
+
+    .card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8.75rem;
+
+      .terminology {
+        width: 29.375rem;
+
+        h4 {
+          font-weight: normal;
+          text-transform: uppercase;
+          color: var(--second-text);
+          letter-spacing: 0.15rem;
+          margin-bottom: 0.6875rem;
+        }
+
+        .titleCard {
+          color: #fff;
+          font-size: 3.5rem;
+          text-transform: uppercase;
+          font-weight: normal;
+          margin-bottom: 1.25rem;
+          font-family: var(--font-two);
+        }
+
+        .description-card {
+          font-size: 1.125rem;
+          color: var(--second-text);
+          line-height: 2;
+        }
+      }
+
+      .container-img img {
+        animation: 0.5s fade ease-in-out;
+      }
+    }
+  }
+
+  @keyframes fade {
+    from {
+      opacity: 0;
+      transform: translateX(200px) rotate(10deg);
+      filter: blur(5px);
+    }
+  }
+</style>
+
+<script>
+  const renderInfoInHTML = async (id: number, category: string) => {
+    // Penticion para recuperar la informacion del archivo data.json
+    const data = await fetch("src/data.json")
+      .then((res) => res)
+      .then((res) => res.json());
+    const info = data[category];
+    let newInfo = info[id];
+    // Seleccionar elementos HTML Necesarios
+    const $imgContainer = document.querySelector(".container-img"),
+      $title = document.querySelector(".titleCard"),
+      $description = document.querySelector(".description-card"),
+      img = document.createElement("img");
+    img.setAttribute("src", newInfo.images.portrait);
+    img.id = "imgHTML";
+    img.alt = newInfo.description.split(" ", 4);
+
+    // Cargar la informacion en los elementos HTML
+    $imgContainer.innerHTML = "";
+    $imgContainer.append(img);
+    $title.innerText = newInfo.name;
+    $description.innerText = newInfo.description;
+
+    //Guardar la selección en localStorage
+    localStorage.setItem("idTech", JSON.stringify(id));
+  };
+
+  // Se selecciona el id guardado en el localstorage si no existe es 0
+  const idLocal = localStorage.getItem("idTech") ?? 0;
+  renderInfoInHTML(Number(idLocal), "technology");
+
+  const indicators = document.querySelectorAll(".btn-tec");
+
+  for (const btn of indicators) {
+    btn.addEventListener("click", (e) => {
+      // Elemento actual
+      const ClickElement = e.currentTarget;
+
+      renderInfoInHTML(Number(btn.dataset.id), "technology");
+
+      // Recorrer los elementos para remover la clase active anterior
+      for (const btnJ of indicators) {
+        btnJ.classList.remove("active");
+      }
+      // Al elemento actual se le agrega la clase active
+      ClickElement.classList.add("active");
+    });
+  }
+  for (const btn of indicators) {
+    if (idLocal === btn.dataset.id) btn.classList.add("active");
+  }
+</script>
