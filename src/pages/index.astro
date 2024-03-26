@@ -44,23 +44,27 @@ import Layout from "../layouts/Layout.astro";
     margin-bottom: 7.5rem;
     .hero {
       width: 28.125rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
       h2 {
-        font-size: 1.75rem;
+        font-size: 1.75em;
         font-weight: 400;
         color: var(--second-text);
         text-transform: uppercase;
         margin-bottom: 2.0625rem;
+        letter-spacing: 0.295rem;
       }
       h1 {
-        font-size: 9.375rem;
+        font-size: 9.375em;
         color: #fff;
-        font-family: var(--font-hero);
+        font-family: "Bellefair";
         margin-bottom: 1.5625rem;
         font-weight: 400;
       }
 
       .hero-description {
-        font-size: 1.125rem;
+        font-size: 1.125em;
         color: var(--second-text);
         line-height: 2;
       }
@@ -68,6 +72,7 @@ import Layout from "../layouts/Layout.astro";
 
     .explore-btn {
       button {
+        font-family: "Bellefair", sans-serif;
         width: 17.125rem;
         height: 17.125rem;
         border-radius: 100%;
@@ -75,7 +80,6 @@ import Layout from "../layouts/Layout.astro";
         background: #fff;
         font-size: 2rem;
         letter-spacing: 0.125rem;
-        font-family: var(--font-hero);
         text-transform: uppercase;
         transition:
           box-shadow,
@@ -84,6 +88,27 @@ import Layout from "../layouts/Layout.astro";
 
         &:hover {
           box-shadow: 0 0 0 50px rgba(255, 255, 255, 0.2);
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    body {
+      background-image: url("/assets/home/background-home-tablet.jpg");
+    }
+    .section-home {
+      flex-direction: column;
+      align-items: center;
+      gap: 100px;
+
+      .hero {
+        align-items: center;
+        font-size: 17px;
+        width: fit-content;
+
+        .hero-description {
+          text-align: center;
         }
       }
     }

@@ -149,14 +149,23 @@ import LayoutPage from "../layouts/LayoutPage.astro";
       }
     }
   }
+
+  @media screen and (max-width: 768px) {
+    body {
+      background-image: url("/assets/destination/background-destination-tablet.jpg");
+    }
+
+    .info-destination {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
 </style>
 
 <script>
-  const renderInfoInHTML = async (id: number, category: string) => {
+  import data from "../data.json";
+  const renderInfoInHTML = (id: number, category: string) => {
     // Penticion para recuperar la informacion del archivo data.json
-    const data = await fetch("src/data.json")
-      .then((res) => res)
-      .then((res) => res.json());
     const info = data[category];
     let newInfo = info[id];
     // Seleccionar elementos HTML Necesarios
@@ -183,23 +192,23 @@ import LayoutPage from "../layouts/LayoutPage.astro";
 
   // Recuperar el id en localStorage para no peder la selección
   const idLocal = localStorage.getItem("id") ?? 0;
-  renderInfoInHTML(Number(idLocal), "destinations");
+  renderInfoInHTML(+idLocal, "destinations");
   //
   const items = Array.from(document.querySelectorAll(".item-list-destination"));
   //
-  items.forEach((item) => {
+  items.forEach((item: HTMLElement) => {
     item.addEventListener("click", (e) => {
-      const ClickElement = e.currentTarget;
-      // recorrer nuevamente los elementos para remover la clase active
-      items.forEach((item) => {
-        if (item.classList.contains("active")) item.classList.remove("active");
-      });
-      ClickElement.classList.add("active");
+      const { currentTarget } = e;
+
+      // eliminar clase active al elmento que lo contenga
+      document
+        .querySelector(".item-list-destination.active")
+        .classList.remove("active");
+
+      currentTarget.classList.add("active");
       renderInfoInHTML(Number(item.dataset.id), "destinations");
     });
-  });
-  //
-  items.forEach((item) => {
+    // agregar clase item al elmento si existe en el localStorage
     if (item.dataset.id === idLocal) item.classList.add("active");
   });
 </script>

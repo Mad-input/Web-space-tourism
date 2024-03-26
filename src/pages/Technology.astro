@@ -121,17 +121,14 @@ import LayoutPage from "../layouts/LayoutPage.astro";
 </style>
 
 <script>
+  import data from "../data.json";
   const renderInfoInHTML = async (id: number, category: string) => {
-    // Penticion para recuperar la informacion del archivo data.json
-    const data = await fetch("src/data.json")
-      .then((res) => res)
-      .then((res) => res.json());
     const info = data[category];
     let newInfo = info[id];
     // Seleccionar elementos HTML Necesarios
     const $imgContainer = document.querySelector(".container-img"),
-      $title = document.querySelector(".titleCard"),
-      $description = document.querySelector(".description-card"),
+      $title: HTMLElement = document.querySelector(".titleCard"),
+      $description: HTMLElement = document.querySelector(".description-card"),
       img = document.createElement("img");
     img.setAttribute("src", newInfo.images.portrait);
     img.id = "imgHTML";
@@ -149,26 +146,22 @@ import LayoutPage from "../layouts/LayoutPage.astro";
 
   // Se selecciona el id guardado en el localstorage si no existe es 0
   const idLocal = localStorage.getItem("idTech") ?? 0;
-  renderInfoInHTML(Number(idLocal), "technology");
+  renderInfoInHTML(+idLocal, "technology");
 
   const indicators = document.querySelectorAll(".btn-tec");
 
   for (const btn of indicators) {
     btn.addEventListener("click", (e) => {
       // Elemento actual
-      const ClickElement = e.currentTarget;
+      const { currentTarget } = e;
 
-      renderInfoInHTML(Number(btn.dataset.id), "technology");
+      renderInfoInHTML(+btn.dataset.id, "technology");
 
-      // Recorrer los elementos para remover la clase active anterior
-      for (const btnJ of indicators) {
-        btnJ.classList.remove("active");
-      }
+      // elemnto actual remover la clase active
+      document.querySelector(".btn-tec.active").classList.remove("active");
       // Al elemento actual se le agrega la clase active
-      ClickElement.classList.add("active");
+      currentTarget.classList.add("active");
     });
-  }
-  for (const btn of indicators) {
     if (idLocal === btn.dataset.id) btn.classList.add("active");
   }
 </script>

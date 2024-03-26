@@ -61,6 +61,12 @@ const { title, pageId } = Astro.props;
           opacity: 0;
         }
       }
+
+      @media screen and (max-width: 768px) {
+        :root {
+          font-size: 14px;
+        }
+      }
     </style>
   </body>
 </html>
