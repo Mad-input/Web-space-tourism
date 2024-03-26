@@ -105,11 +105,8 @@ import LayoutPage from "../layouts/LayoutPage.astro";
 </style>
 
 <script>
-  const renderDateInHTML = async (id: number, category: string) => {
-    // Penticion para recuperar la informacion del archivo data.json
-    const data = await fetch("src/data.json")
-      .then((res) => res)
-      .then((res) => res.json());
+  import data from "../data.json";
+  const renderDateInHTML = (id: number, category: string) => {
     const info = data[category];
     let newInfo = info[id];
 
@@ -129,25 +126,20 @@ import LayoutPage from "../layouts/LayoutPage.astro";
     localStorage.setItem("id-crew", JSON.stringify(id));
   };
 
-  const indicators = Array.from(document.querySelectorAll(".indicator"));
-
-  indicators.forEach((indicator) => {
-    indicator.addEventListener("click", (e) => {
-      const ClickElement = e.currentTarget;
-
-      indicators.forEach((item) => {
-        if (item.classList.contains("active")) item.classList.remove("active");
-      });
-
-      ClickElement.classList.add("active");
-
-      renderDateInHTML(Number(indicator.dataset.id), "crew");
-    });
-  });
   const idLocal = localStorage.getItem("id-crew") ?? 0;
   renderDateInHTML(Number(idLocal), "crew");
 
-  indicators.forEach((item) => {
-    if (item.dataset.id === idLocal) item.classList.add("active");
+  const indicators = Array.from(document.querySelectorAll(".indicator"));
+  indicators.forEach((indicator: HTMLElement) => {
+    indicator.addEventListener("click", (e) => {
+      const { currentTarget } = e;
+
+      document.querySelector(".indicator.active").classList.remove("active");
+
+      currentTarget.classList.add("active");
+
+      renderDateInHTML(Number(indicator.dataset.id), "crew");
+    });
+    if (indicator.dataset.id === idLocal) indicator.classList.add("active");
   });
 </script>

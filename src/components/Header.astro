@@ -14,19 +14,23 @@ const { page } = Astro.props;
   <nav class="nav">
     <ul class="nav-list">
       <li class=`list-item-home ${page == 1 ? 'active': ''}` data-dataPage="1">
-        <a href="/"><span class="span-list-item">00</span> Home</a>
+        <a href="/"
+          ><span class="span-list-item" style="--hidden:false">00</span> Home</a
+        >
       </li>
       <li class=`list-item-home ${page == 2 ? 'active': ''}` data-dataPage="2">
         <a href="/Destination"
-          ><span class="span-list-item">01</span> Destination</a
+          ><span class="span-list-item" style="--hidden:false">01</span> Destination</a
         >
       </li>
       <li class=`list-item-home ${page == 3 ? 'active': ''}` data-dataPage="3">
-        <a href="/Crew"><span class="span-list-item">02</span> Crew</a>
+        <a href="/Crew"
+          ><span class="span-list-item" style="--hidden:false">02</span> Crew</a
+        >
       </li>
       <li class=`list-item-home ${page == 4 ? 'active': ''}` data-dataPage="4">
         <a href="/Technology"
-          ><span class="span-list-item">03</span> Technology</a
+          ><span class="span-list-item" style="--hidden:true">03</span> Technology</a
         >
       </li>
     </ul>
@@ -88,7 +92,7 @@ const { page } = Astro.props;
             text-transform: uppercase;
             letter-spacing: 0.1688rem;
 
-            span {
+            .span-list-item {
               font-family: "Barlow Condensed", sans-serif;
               font-weight: 700;
             }
@@ -115,12 +119,30 @@ const { page } = Astro.props;
       background: rgba(255, 255, 255, 0.2);
     }
   }
+
+  @media screen and (max-width: 768px) {
+    header {
+      padding-top: 0;
+      .rectangle {
+        display: none;
+      }
+
+      .nav {
+        flex: 0.8;
+        height: 6rem;
+        width: 28.125rem;
+        .span-list-item {
+          display: none;
+        }
+      }
+    }
+  }
 </style>
 
 <script>
   const indicator = document.getElementById("Indicator");
   const listItems = document.querySelectorAll(".list-item-home");
-
+  const spans = document.querySelectorAll(".span-list-item");
   listItems.forEach((item) => {
     item.addEventListener("mouseenter", () => {
       indicator.style.left = `${item.offsetLeft}px`;
