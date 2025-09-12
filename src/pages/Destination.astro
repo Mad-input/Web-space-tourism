@@ -211,6 +211,7 @@ import LayoutPage from "../layouts/LayoutPage.astro";
       renderInfoInHTML(Number(item.dataset.id), "destinations");
     });
     // agregar clase item al elmento si existe en el localStorage
-    if (item.dataset.id === idLocal) item.classList.add("active");
+    if (item.dataset.id === idLocal || Number(item.dataset.id) === 0)
+      item.classList.add("active");
   });
 </script>

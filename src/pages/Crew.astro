@@ -142,6 +142,7 @@ import LayoutPage from "../layouts/LayoutPage.astro";
 
       renderDateInHTML(Number(indicator.dataset.id), "crew");
     });
-    if (indicator.dataset.id === idLocal) indicator.classList.add("active");
+    if (indicator.dataset.id === idLocal || Number(indicator.dataset.id) === 0)
+      indicator.classList.add("active");
   });
 </script>
