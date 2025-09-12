@@ -153,12 +153,12 @@ import LayoutPage from "../layouts/LayoutPage.astro";
   for (const btn of indicators) {
     btn.addEventListener("click", (e) => {
       // Elemento actual
-      const { currentTarget } = e;
+      const { currentTarget }: any = e;
 
       renderInfoInHTML(+btn.dataset.id, "technology");
 
       // elemnto actual remover la clase active
-      document.querySelector(".btn-tec.active").classList.remove("active");
+      document?.querySelector(".btn-tec.active")?.classList.remove("active");
       // Al elemento actual se le agrega la clase active
       currentTarget.classList.add("active");
     });

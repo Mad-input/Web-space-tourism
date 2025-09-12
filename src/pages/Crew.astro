@@ -132,9 +132,9 @@ import LayoutPage from "../layouts/LayoutPage.astro";
   const indicators = Array.from(document.querySelectorAll(".indicator"));
   indicators.forEach((indicator: HTMLElement) => {
     indicator.addEventListener("click", (e) => {
-      const { currentTarget } = e;
+      const { currentTarget }: any = e;
 
-      document.querySelector(".indicator.active").classList.remove("active");
+      document?.querySelector(".indicator.active")?.classList.remove("active");
 
       currentTarget.classList.add("active");
 

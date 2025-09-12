@@ -198,12 +198,12 @@ import LayoutPage from "../layouts/LayoutPage.astro";
   //
   items.forEach((item: HTMLElement) => {
     item.addEventListener("click", (e) => {
-      const { currentTarget } = e;
+      const { currentTarget }: any = e;
 
       // eliminar clase active al elmento que lo contenga
       document
-        .querySelector(".item-list-destination.active")
-        .classList.remove("active");
+        ?.querySelector(".item-list-destination.active")
+        ?.classList.remove("active");
 
       currentTarget.classList.add("active");
       renderInfoInHTML(Number(item.dataset.id), "destinations");
